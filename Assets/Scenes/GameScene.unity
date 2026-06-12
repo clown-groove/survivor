@@ -4375,8 +4375,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 444370903
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
@@ -4931,30 +4931,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 889879341150860363, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 889879341150860363, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 889879341150860363, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 889879341150860363, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 889879341150860363, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 889879341150860363, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6211069814864371718, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.11
@@ -4998,10 +4974,6 @@ PrefabInstance:
     - target: {fileID: 7215864565718897953, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7423767388695657856, guid: e8e320962719e8543aff0f0bc1fc5647, type: 3}
-      propertyPath: orthographic size
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

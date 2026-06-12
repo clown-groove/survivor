@@ -28,12 +28,14 @@ MonoBehaviour:
   - type: 6
     value: 12
   - type: 7
-    value: 10
+    value: 1
   - type: 8
     value: 10
   - type: 9
-    value: 4
+    value: 1
   - type: 10
     value: 4
   - type: 11
+    value: 4
+  - type: 12
     value: 4

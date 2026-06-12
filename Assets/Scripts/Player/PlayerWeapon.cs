@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerWeapon : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PlayerWeapon : MonoBehaviour
 
     private int currentAmmo;
     private float shootCooldown;
+
+    private Vector2 aimDirection;
 
     public void AutoAimSwitch()
     {
@@ -57,7 +60,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private void HandleAim()
     {
-        Vector2 mauseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        aimDirection = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - transform.position;
     }
 
     private void HandleShooting()
@@ -70,11 +73,26 @@ public class PlayerWeapon : MonoBehaviour
                 PerformShoot();
             }
         }
+        shootCooldown -= Time.deltaTime;
     }
 
     private void PerformShoot()
     {
+        for (int i = 0; i < playerStats.CurrentStats[StatTypes.bulletAmmount]; i++)
+        {
+            float spread = Random.Range(-playerStats.CurrentStats[StatTypes.spreadAngle] / 2, playerStats.CurrentStats[StatTypes.spreadAngle] / 2);
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            angle += spread;
 
+            GameObject spawnedBullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, angle), null);
+            spawnedBullet.GetComponent<ProjectileScript>().SetProjectileStats(
+                playerStats.CurrentStats[StatTypes.damage],
+                playerStats.CurrentStats[StatTypes.bulletRange],
+                playerStats.CurrentStats[StatTypes.knockback]
+                );
+
+            spawnedBullet.GetComponent<Rigidbody2D>().linearVelocity = playerStats.CurrentStats[StatTypes.bulletSpeed] * spawnedBullet.transform.right;
+        }
     }
 
     private void Awake()
