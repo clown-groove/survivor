@@ -13,23 +13,33 @@ public class PlayerController : MonoBehaviour
     private InputAction movement;
     private InputAction attack;
 
-    private bool autoAiming;
-
+    #region Update functions
+    private void SetWalkVelocity(Vector2 inputDirection)
+    {
+        float walkSpeed = playerStats.CurrentStats[StatTypes.walkSpeed];
+        Vector2 calculatedSpeed = (inputDirection.x * transform.right.normalized + inputDirection.y * transform.up.normalized).normalized * walkSpeed;
+        float distanceToTarget = (calculatedSpeed - rb.linearVelocity).magnitude;
+        rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, calculatedSpeed, walkSpeed * 2.4f * Time.fixedDeltaTime * (1 + distanceToTarget));
+    }
+    #endregion
 
     #region Input events
     private void OnPause(InputAction.CallbackContext obj)
     {
-
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.PauseInput();
+        }
     }
 
     private void OnReload(InputAction.CallbackContext obj)
     {
-
+        playerWeapon.CallReload();
     }
 
     private void OnAutoAim(InputAction.CallbackContext obj)
     {
-
+        playerWeapon.AutoAimSwitch();
     }
     #endregion
 
@@ -44,8 +54,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerWeapon = GetComponent<PlayerWeapon>();
         playerStats = GetComponent<PlayerStats>();
-
-        autoAiming = false;
     }
 
     private void OnEnable()
@@ -79,7 +87,13 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        if (GameManager.Instance != null && GameManager.Instance.GamePaused)
+        {
+            return;
+        }
+
+        Vector2 inputDirection = movement.ReadValue<Vector2>();
+        SetWalkVelocity(inputDirection);
     }
     #endregion
 }
