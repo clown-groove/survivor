@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerStats))]
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+
     private Rigidbody2D rb;
     private PlayerWeapon playerWeapon;
     private PlayerStats playerStats;
@@ -46,6 +48,14 @@ public class PlayerController : MonoBehaviour
     #region Callbacks
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         player = GetComponent<PlayerInput>().actions.FindActionMap("Player");
         rb = GetComponent<Rigidbody2D>();
         playerWeapon = GetComponent<PlayerWeapon>();

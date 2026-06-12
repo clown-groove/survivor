@@ -13,4 +13,5 @@ public enum StatTypes
     walkSpeed, //więcej niż 0
     maxHealth, //pełne liczby, nie może być mniej niż 1
     xpCollectRange, //więcej niż 0
+    desiredDistanceFromPlayer, //enemy only
 }

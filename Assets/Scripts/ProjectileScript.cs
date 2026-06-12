@@ -31,11 +31,11 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*if (collision.GetComponent<EnemyHealth>())
+        if (collision.GetComponent<EnemyHealth>())
         {
 
         }
-        else*/ if (collision.GetComponent<PlayerHealth>())
+        else if (collision.GetComponent<PlayerHealth>())
         {
             collision.GetComponent<PlayerHealth>().ApplyDamage();
         }
