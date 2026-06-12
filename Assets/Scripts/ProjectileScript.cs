@@ -31,7 +31,14 @@ public class ProjectileScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //zadawanie obrażeń
+        /*if (collision.GetComponent<EnemyHealth>())
+        {
+
+        }
+        else*/ if (collision.GetComponent<PlayerHealth>())
+        {
+            collision.GetComponent<PlayerHealth>().ApplyDamage();
+        }
         DestroyBullet();
     }
 }
