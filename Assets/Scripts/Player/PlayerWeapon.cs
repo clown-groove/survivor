@@ -53,8 +53,8 @@ public class PlayerWeapon : MonoBehaviour
         isReloading = true;
         //animacja przeładowania
         yield return new WaitForSeconds(playerStats.CurrentStats[StatTypes.reloadTime]);
-        isReloading = false;
         currentAmmo = (int)playerStats.CurrentStats[StatTypes.maxAmmo];
+        isReloading = false;
         yield return null;
     }
 
@@ -65,12 +65,18 @@ public class PlayerWeapon : MonoBehaviour
 
     private void HandleShooting()
     {
-        if (isShooting)
+        if (isShooting && !isReloading)
         {
-            if(shootCooldown <= 0f)
+            if(shootCooldown <= 0f && currentAmmo > 0)
             {
                 shootCooldown = 1f / playerStats.CurrentStats[StatTypes.fireRate];
                 PerformShoot();
+                currentAmmo -= 1;
+
+                if (currentAmmo <= 0)
+                {
+                    CallReload();
+                }
             }
         }
         shootCooldown -= Time.deltaTime;
