@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour
         {
             case StatTypes.maxAmmo:
             case StatTypes.maxHealth:
+            case StatTypes.bulletAmmount:
                 CurrentStats[statType] += changeAmmount;
                 CurrentStats[statType] = (int)CurrentStats[statType];
                 if (CurrentStats[statType] < 1)

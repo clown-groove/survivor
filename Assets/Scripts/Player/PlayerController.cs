@@ -47,13 +47,14 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<PlayerInput>().actions.FindActionMap("Player");
+        rb = GetComponent<Rigidbody2D>();
+        playerWeapon = GetComponent<PlayerWeapon>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        playerWeapon = GetComponent<PlayerWeapon>();
-        playerStats = GetComponent<PlayerStats>();
+        
     }
 
     private void OnEnable()
@@ -82,7 +83,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        
+        if (GameManager.Instance != null && GameManager.Instance.GamePaused)
+        {
+            return;
+        }
+
+        playerWeapon.ShootingInput(attack.IsPressed());
     }
 
     private void FixedUpdate()

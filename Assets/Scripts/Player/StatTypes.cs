@@ -7,6 +7,7 @@ public enum StatTypes
     bulletRange, //więcej niż 0
     reloadTime, //więcej niż 0
     maxAmmo, //pełne liczby, nie może być mneij niż 1
+    bulletAmmount, //pełne liczby, nie może być mneij niż 1
     spreadAngle, //więcej niż 0
     knockback, //więcej niż 0
     walkSpeed, //więcej niż 0
