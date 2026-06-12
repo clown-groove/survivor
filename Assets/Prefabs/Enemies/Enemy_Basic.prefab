@@ -126,7 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94191d28ba326424a9775a8d5c6d7df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDrops
-  loot: []
+  loot:
+  - item: {fileID: 7269979935067763076, guid: b2007864d652c7849b352bdc0f4c1834, type: 3}
+    chance: 1
 --- !u!114 &7839723054170087796
 MonoBehaviour:
   m_ObjectHideFlags: 0

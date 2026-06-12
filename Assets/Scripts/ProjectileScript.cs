@@ -33,7 +33,7 @@ public class ProjectileScript : MonoBehaviour
     {
         if (collision.GetComponent<EnemyHealth>())
         {
-
+            collision.GetComponent<EnemyHealth>().ApplyDamage(damage);
         }
         else if (collision.GetComponent<PlayerHealth>())
         {
