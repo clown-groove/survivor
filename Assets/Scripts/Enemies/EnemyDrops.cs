@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class EnemyDrops : MonoBehaviour
@@ -9,9 +7,9 @@ public class EnemyDrops : MonoBehaviour
 
     private void OnDestroy()
     {
-        float rng = Random.Range(0, 1);
         foreach( Loot loot in loot)
         {
+            float rng = Random.Range(0, 1);
             if (rng < loot.chance)
             {
                 Instantiate(loot.item, transform.position, Quaternion.identity, null);
@@ -19,7 +17,8 @@ public class EnemyDrops : MonoBehaviour
         }
     }
 }
- 
+
+[System.Serializable]
 public struct Loot
 {
     public GameObject item;

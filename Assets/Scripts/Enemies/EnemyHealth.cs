@@ -1,6 +1,7 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(EnemyController))]
+[RequireComponent(typeof(EnemyDrops))]
 public class EnemyHealth : MonoBehaviour
 {
     private float currentHealth;
@@ -20,8 +21,8 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void SetHealth(float health)
     {
-        currentHealth = GetComponent<EnemyController>().GetMaxHealth();
+        currentHealth = health;
     }
 }

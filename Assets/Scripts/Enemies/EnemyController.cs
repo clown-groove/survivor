@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : MonoBehaviour
@@ -12,16 +13,13 @@ public class EnemyController : MonoBehaviour
 
     private float shootCooldown;
 
+    private Vector2 playerPosition;
     private Vector2 playerDirection;
-
-    public float GetMaxHealth()
-    {
-        return enemyStats.Stats[StatTypes.maxHealth];
-    }
 
     private void HandleAim()
     {
-        playerDirection = PlayerController.Instance.transform.position - transform.position;
+        playerPosition = PlayerController.Instance.transform.position;
+        playerDirection = playerPosition - (Vector2)transform.position;
     }
 
     private void HandleShooting()
@@ -41,7 +39,8 @@ public class EnemyController : MonoBehaviour
 
     private void PerformShoot()
     {
-        GameObject spawnedBullet = Instantiate(bulletPrefab, transform.position, Quaternion.LookRotation(playerDirection), null);
+        float angle = Mathf.Atan2(playerDirection.y, playerDirection.x) * Mathf.Rad2Deg;
+        GameObject spawnedBullet = Instantiate(bulletPrefab, transform.position, Quaternion.Euler(0, 0, angle), null);
         spawnedBullet.GetComponent<ProjectileScript>().SetProjectileStats(
             0,
             enemyStats.Stats[StatTypes.bulletRange],
@@ -53,10 +52,18 @@ public class EnemyController : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector2 moveDirection = playerDirection - (playerDirection * enemyStats.Stats[StatTypes.desiredDistanceFromPlayer]);
+        Vector2 directionFromPlayer = playerDirection.normalized;
+
+        Vector2 targetPosition = playerPosition - directionFromPlayer * enemyStats.Stats[StatTypes.desiredDistanceFromPlayer];
+        Vector2 moveDirection = targetPosition - (Vector2)transform.position;
 
         float walkSpeed = enemyStats.Stats[StatTypes.walkSpeed];
         Vector2 calculatedSpeed = moveDirection.normalized * walkSpeed;
+
+        if(moveDirection.magnitude < 0.1f)
+        {
+            calculatedSpeed = Vector2.zero;
+        }
         float distanceToTarget = (calculatedSpeed - rb.linearVelocity).magnitude;
         rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, calculatedSpeed, walkSpeed * 2.4f * Time.fixedDeltaTime * (1 + distanceToTarget));
     }
@@ -69,6 +76,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         enemyStats.InitializeStats();
+        GetComponent<EnemyHealth>().SetHealth(enemyStats.Stats[StatTypes.maxHealth]);
     }
 
     private void Update()
