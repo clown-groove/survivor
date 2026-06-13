@@ -49,10 +49,9 @@ public class GameUI : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         healthDisplays = new List<GameObject>();
-
     }
 
     private void OnEnable()

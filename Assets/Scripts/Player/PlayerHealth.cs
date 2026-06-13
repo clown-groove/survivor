@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 
     private PlayerStats playerStats;
 
+    [SerializeField]
     private int currentHealth;
     public int CurrentHealth { get { return currentHealth; } }
 
