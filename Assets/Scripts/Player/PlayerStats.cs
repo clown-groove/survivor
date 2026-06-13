@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public static event Action<int, int> OnMaxHealthChanged = delegate { };
+
     [SerializeField]
     private DefaultStatsSO defaultStats;
     public Dictionary<StatTypes, float> CurrentStats { get; private set; } = new Dictionary<StatTypes, float>();
@@ -27,6 +29,11 @@ public class PlayerStats : MonoBehaviour
                 Debug.LogError("Nieprawidłowy sposób zmiany statystyki. Wykorzystano ammount zamiast multiplier");
                 break;
         }
+
+        if(statType == StatTypes.maxHealth)
+        {
+            OnMaxHealthChanged?.Invoke((int)CurrentStats[StatTypes.maxHealth], (int)changeAmmount);
+        }
     }
 
     public void ModifyStatMultiplier(StatTypes statType, float changeMultiplier)
@@ -41,7 +48,7 @@ public class PlayerStats : MonoBehaviour
             case StatTypes.reloadTime:
             case StatTypes.spreadAngle:
             case StatTypes.knockback:
-            case StatTypes.maxHealth:
+            case StatTypes.walkSpeed:
             case StatTypes.xpCollectRange:
                 CurrentStats[statType] *= changeMultiplier;
                 if (CurrentStats[statType] <= 0)

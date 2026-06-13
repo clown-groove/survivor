@@ -10,6 +10,11 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     public int CurrentHealth { get { return currentHealth; } }
 
+    private void OnMaxHealthChanged(int max, int change)
+    {
+        ApplyHeal(change);
+    }
+
     public void ApplyHeal(int healAmmount = 1)
     {
         if(healAmmount < 1)
@@ -30,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentHealth -= 1;
 
+        OnCurrentHealthChanged?.Invoke(currentHealth);
         CheckDeath();
     }
 
@@ -49,5 +55,15 @@ public class PlayerHealth : MonoBehaviour
     private void Start()
     {
         currentHealth = (int)playerStats.CurrentStats[StatTypes.maxHealth];
+    }
+
+    private void OnEnable()
+    {
+        PlayerStats.OnMaxHealthChanged += OnMaxHealthChanged;
+    }
+
+    private void OnDisable()
+    {
+        PlayerStats.OnMaxHealthChanged -= OnMaxHealthChanged;
     }
 }
