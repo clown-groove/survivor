@@ -12,7 +12,17 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnMaxHealthChanged(int max, int change)
     {
-        ApplyHeal(change);
+        if (change > 0)
+        {
+            ApplyHeal(change);
+        }
+        else if (change < 0)
+        {
+            if (currentHealth > max)
+            {
+                currentHealth = max;
+            }
+        }
     }
 
     public void ApplyHeal(int healAmmount = 1)
