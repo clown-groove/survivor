@@ -1,15 +1,14 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
     [SerializeField]
     private RectTransform healthDisplayParent;
     [SerializeField]
-    private Sprite filledHealthSprite;
-    [SerializeField]
-    private Sprite emptyHealthSprite;
+    private GameObject singleHealth;
     private List<GameObject> healthDisplays;
 
     [SerializeField]
@@ -22,12 +21,32 @@ public class GameUI : MonoBehaviour
 
     private void OnCurrentHealthChanged(int current)
     {
-
+        for (int i = 0; i < current; i++)
+        {
+            healthDisplays[i].GetComponent<UISingleHP>().HeartFilled = true;
+        }
+        for (int i = current; i < healthDisplays.Count; i++)
+        {
+            healthDisplays[i].GetComponent<UISingleHP>().HeartFilled = false;
+        }
     }
 
     private void OnMaxHealthChanged(int max, int change)
     {
-
+        if (change > 0)
+        {
+            while (healthDisplays.Count < max)
+            {
+                healthDisplays.Add(Instantiate(singleHealth, healthDisplayParent));
+            }
+        }
+        else if (change < 0)
+        {
+            while (healthDisplays.Count > max)
+            {
+                healthDisplays.RemoveAt(healthDisplays.Count - 1);
+            }
+        }
     }
 
     private void Start()

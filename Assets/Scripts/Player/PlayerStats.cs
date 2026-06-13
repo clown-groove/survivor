@@ -68,5 +68,7 @@ public class PlayerStats : MonoBehaviour
         {
             CurrentStats.Add(stat.type, stat.value);
         }
+
+        OnMaxHealthChanged?.Invoke((int)CurrentStats[StatTypes.maxHealth], (int)CurrentStats[StatTypes.maxHealth]);
     }
 }
