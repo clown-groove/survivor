@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class PlayerWeapon : MonoBehaviour
 {
-    public static event Action<int> OnAmmoAmmountChange = delegate { };
+    public static event Action<int, int> OnAmmoAmmountChange = delegate { };
 
     [SerializeField]
     private GameObject bulletPrefab;
@@ -59,7 +59,7 @@ public class PlayerWeapon : MonoBehaviour
         currentAmmo = (int)playerStats.CurrentStats[StatTypes.maxAmmo];
         isReloading = false;
 
-        OnAmmoAmmountChange?.Invoke(currentAmmo);
+        OnAmmoAmmountChange?.Invoke(currentAmmo, (int)playerStats.CurrentStats[StatTypes.maxAmmo]);
         yield return null;
     }
 
@@ -105,7 +105,7 @@ public class PlayerWeapon : MonoBehaviour
         }
 
         currentAmmo -= 1;
-        OnAmmoAmmountChange?.Invoke(currentAmmo);
+        OnAmmoAmmountChange?.Invoke(currentAmmo, (int)playerStats.CurrentStats[StatTypes.maxAmmo]);
     }
 
     private void Awake()
@@ -119,6 +119,7 @@ public class PlayerWeapon : MonoBehaviour
     private void Start()
     {
         currentAmmo = (int)playerStats.CurrentStats[StatTypes.maxAmmo];
+        OnAmmoAmmountChange?.Invoke(currentAmmo, (int)playerStats.CurrentStats[StatTypes.maxAmmo]);
     }
 
     void Update()

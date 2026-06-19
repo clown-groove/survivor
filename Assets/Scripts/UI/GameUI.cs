@@ -65,6 +65,11 @@ public class GameUI : MonoBehaviour
         pauseMenu.SetActive(gamePaused);
     }
 
+    private void OnAmmoAmmountChange(int ammount, int max)
+    {
+        ammoText.text = $"{ammount}/{max}";
+    }
+
     private void Awake()
     {
         healthDisplays = new List<GameObject>();
@@ -80,6 +85,7 @@ public class GameUI : MonoBehaviour
         PlayerHealth.OnCurrentHealthChanged += OnCurrentHealthChanged;
         PlayerHealth.OnMaxHealthChanged += OnMaxHealthChanged;
         GameManager.OnPause += OnPause;
+        PlayerWeapon.OnAmmoAmmountChange += OnAmmoAmmountChange;
     }
 
     private void OnDisable()
@@ -87,5 +93,6 @@ public class GameUI : MonoBehaviour
         PlayerHealth.OnCurrentHealthChanged -= OnCurrentHealthChanged;
         PlayerHealth.OnMaxHealthChanged -= OnMaxHealthChanged;
         GameManager.OnPause -= OnPause;
+        PlayerWeapon.OnAmmoAmmountChange -= OnAmmoAmmountChange;
     }
 }
