@@ -101,6 +101,7 @@ public class PlayerWeapon : MonoBehaviour
                 playerStats.CurrentStats[StatTypes.knockback]
                 );
 
+            spawnedBullet.transform.localScale = Vector3.one * playerStats.CurrentStats[StatTypes.bulletSize];
             spawnedBullet.GetComponent<Rigidbody2D>().linearVelocity = playerStats.CurrentStats[StatTypes.bulletSpeed] * spawnedBullet.transform.right;
         }
 
