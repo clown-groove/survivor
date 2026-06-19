@@ -37,7 +37,7 @@ public class ProjectileScript : MonoBehaviour
         }
         else if (collision.GetComponent<PlayerHealth>())
         {
-            collision.GetComponent<PlayerHealth>().ApplyDamage();
+            collision.GetComponent<PlayerHealth>().ApplyDamage((Vector2)transform.position, knockback);
         }
         DestroyBullet();
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -7,10 +8,15 @@ public class PlayerHealth : MonoBehaviour
     public static event Action<int, int> OnMaxHealthChanged = delegate { };
 
     private PlayerStats playerStats;
+    private Rigidbody2D rb;
 
+    [SerializeField]
+    private float immunityTime = 1.3f;
     [SerializeField]
     private int currentHealth;
     public int CurrentHealth { get { return currentHealth; } }
+
+    private bool immune;
 
     private void OnMaxHealthStatChanged(int max, int change)
     {
@@ -44,12 +50,27 @@ public class PlayerHealth : MonoBehaviour
         OnCurrentHealthChanged?.Invoke(currentHealth);
     }
 
-    public void ApplyDamage()
+    public void ApplyDamage(Vector2 dmgSourcePosition, float knockback)
     {
-        currentHealth -= 1;
+        if (!immune)
+        {
+            currentHealth -= 1;
+            OnCurrentHealthChanged?.Invoke(currentHealth);
 
-        OnCurrentHealthChanged?.Invoke(currentHealth);
+            rb.AddForce(((Vector2)transform.position - dmgSourcePosition).normalized * knockback, ForceMode2D.Impulse);
+
+            StartCoroutine(ImmuneCoroutine());
+        }
+
         CheckDeath();
+    }
+
+    private IEnumerator ImmuneCoroutine()
+    {
+        immune = true;
+        yield return new WaitForSeconds(immunityTime);
+        immune = false;
+        yield return null;
     }
 
     private void CheckDeath()
@@ -63,6 +84,8 @@ public class PlayerHealth : MonoBehaviour
     private void Awake()
     {
         playerStats = GetComponent<PlayerStats>();
+        rb = GetComponent<Rigidbody2D>();
+        immune = false;
     }
 
     private void Start()

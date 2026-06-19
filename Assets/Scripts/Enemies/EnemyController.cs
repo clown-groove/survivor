@@ -99,4 +99,12 @@ public class EnemyController : MonoBehaviour
 
         HandleMovement();
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.rigidbody.GetComponent<PlayerHealth>())
+        {
+            collision.rigidbody.GetComponent<PlayerHealth>().ApplyDamage((Vector2)transform.position, enemyStats.Stats[StatTypes.knockback]);
+        }
+    }
 }

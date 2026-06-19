@@ -12,7 +12,7 @@ public class EnemyStatsSO : ScriptableObject
         new Stat { type = StatTypes.bulletRange, value = 20f },
         new Stat { type = StatTypes.walkSpeed, value = 1.7f },
         new Stat { type = StatTypes.maxHealth, value = 10f },
-        new Stat { type = StatTypes.knockback, value = 1f },
+        new Stat { type = StatTypes.knockback, value = 15f },
         new Stat { type = StatTypes.desiredDistanceFromPlayer, value = 0f },
     };
 
