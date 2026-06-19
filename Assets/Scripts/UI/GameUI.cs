@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
@@ -18,6 +19,16 @@ public class GameUI : MonoBehaviour
 
     [SerializeField]
     private GameObject pauseMenu;
+
+    public void Resume()
+    {
+        GameManager.Instance.ResumeButton();
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 
     private void OnCurrentHealthChanged(int current)
     {
@@ -49,20 +60,32 @@ public class GameUI : MonoBehaviour
         }
     }
 
+    private void OnPause(bool gamePaused)
+    {
+        pauseMenu.SetActive(gamePaused);
+    }
+
     private void Awake()
     {
         healthDisplays = new List<GameObject>();
     }
 
+    private void Start()
+    {
+        pauseMenu.SetActive(false);
+    }
+
     private void OnEnable()
     {
         PlayerHealth.OnCurrentHealthChanged += OnCurrentHealthChanged;
-        PlayerStats.OnMaxHealthChanged += OnMaxHealthChanged;
+        PlayerHealth.OnMaxHealthChanged += OnMaxHealthChanged;
+        GameManager.OnPause += OnPause;
     }
 
     private void OnDisable()
     {
         PlayerHealth.OnCurrentHealthChanged -= OnCurrentHealthChanged;
-        PlayerStats.OnMaxHealthChanged -= OnMaxHealthChanged;
+        PlayerHealth.OnMaxHealthChanged -= OnMaxHealthChanged;
+        GameManager.OnPause -= OnPause;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    public static event Action<int> OnAmmoAmmountChange = delegate { };
+
     [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
@@ -55,6 +58,8 @@ public class PlayerWeapon : MonoBehaviour
         yield return new WaitForSeconds(playerStats.CurrentStats[StatTypes.reloadTime]);
         currentAmmo = (int)playerStats.CurrentStats[StatTypes.maxAmmo];
         isReloading = false;
+
+        OnAmmoAmmountChange?.Invoke(currentAmmo);
         yield return null;
     }
 
@@ -71,7 +76,6 @@ public class PlayerWeapon : MonoBehaviour
             {
                 shootCooldown = 1f / playerStats.CurrentStats[StatTypes.fireRate];
                 PerformShoot();
-                currentAmmo -= 1;
 
                 if (currentAmmo <= 0)
                 {
@@ -86,7 +90,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         for (int i = 0; i < playerStats.CurrentStats[StatTypes.bulletAmmount]; i++)
         {
-            float spread = Random.Range(-playerStats.CurrentStats[StatTypes.spreadAngle] / 2, playerStats.CurrentStats[StatTypes.spreadAngle] / 2);
+            float spread = UnityEngine.Random.Range(-playerStats.CurrentStats[StatTypes.spreadAngle] / 2, playerStats.CurrentStats[StatTypes.spreadAngle] / 2);
             float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
             angle += spread;
 
@@ -99,6 +103,9 @@ public class PlayerWeapon : MonoBehaviour
 
             spawnedBullet.GetComponent<Rigidbody2D>().linearVelocity = playerStats.CurrentStats[StatTypes.bulletSpeed] * spawnedBullet.transform.right;
         }
+
+        currentAmmo -= 1;
+        OnAmmoAmmountChange?.Invoke(currentAmmo);
     }
 
     private void Awake()

@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public static event Action<int> OnCurrentHealthChanged = delegate { };
+    public static event Action<int, int> OnMaxHealthChanged = delegate { };
 
     private PlayerStats playerStats;
 
@@ -11,8 +12,9 @@ public class PlayerHealth : MonoBehaviour
     private int currentHealth;
     public int CurrentHealth { get { return currentHealth; } }
 
-    private void OnMaxHealthChanged(int max, int change)
+    private void OnMaxHealthStatChanged(int max, int change)
     {
+        OnMaxHealthChanged?.Invoke(max, change);
         if (change > 0)
         {
             ApplyHeal(change);
@@ -70,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerStats.OnMaxHealthChanged += OnMaxHealthChanged;
+        PlayerStats.OnMaxHealthChanged += OnMaxHealthStatChanged;
     }
 
     private void OnDisable()
