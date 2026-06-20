@@ -44,6 +44,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            GetComponent<EnemyDrops>().SpawnDrops();
             Destroy(gameObject);
         }
     }

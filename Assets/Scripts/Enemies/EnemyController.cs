@@ -75,7 +75,8 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        enemyStats.InitializeStats();
+        if (enemyStats.Stats.Count < 1)
+            enemyStats.InitializeStats();
         GetComponent<EnemyHealth>().SetHealth(enemyStats.Stats[StatTypes.maxHealth]);
     }
 

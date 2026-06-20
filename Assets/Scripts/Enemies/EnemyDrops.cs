@@ -5,7 +5,7 @@ public class EnemyDrops : MonoBehaviour
     [SerializeField]
     private Loot[] loot = new Loot[] { };
 
-    private void OnDestroy()
+    public void SpawnDrops()
     {
         foreach( Loot loot in loot)
         {
