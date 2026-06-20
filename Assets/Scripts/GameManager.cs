@@ -6,16 +6,18 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     public static event Action<bool> OnPause = delegate { };
+    public static event Action OnVictory = delegate { };
+    public static event Action OnDefeat = delegate { };
 
     private bool gamePaused;
+    private bool gameEnded;
+
     public bool GamePaused
     {
         get { return gamePaused; }
         private set 
         { 
             gamePaused = value;
-
-            OnPause?.Invoke(gamePaused);
 
             if (gamePaused)
             {
@@ -25,12 +27,16 @@ public class GameManager : MonoBehaviour
             {
                 Time.timeScale = 1f;
             }
+
+            if (!gameEnded)
+                OnPause?.Invoke(gamePaused);
         }
     }
 
     public void PauseInput()
     {
-        GamePaused = !GamePaused;
+        if (!gameEnded)
+            GamePaused = !GamePaused;
     }
 
     public void ResumeButton()
@@ -38,6 +44,26 @@ public class GameManager : MonoBehaviour
         if (gamePaused)
         {
             GamePaused = false;
+        }
+    }
+
+    public void CallPlayerDead()
+    {
+        if (!gameEnded)
+        {
+            gameEnded = true;
+            GamePaused = true;
+            OnDefeat?.Invoke();
+        }
+    }
+
+    public void CallVictory()
+    {
+        if (!gameEnded)
+        {
+            gameEnded = true;
+            GamePaused = true;
+            OnVictory?.Invoke();
         }
     }
 
@@ -52,5 +78,6 @@ public class GameManager : MonoBehaviour
         Instance = this;
 
         GamePaused = false;
+        gameEnded = false;
     }
 }

@@ -77,7 +77,10 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            //przegrana
+            if(GameManager.Instance != null)
+            {
+                GameManager.Instance.CallPlayerDead();
+            }
         }
     }
 
