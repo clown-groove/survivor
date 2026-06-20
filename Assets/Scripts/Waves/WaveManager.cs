@@ -12,6 +12,12 @@ public class WaveManager : MonoBehaviour
     private float waveTime = 20f;
     [SerializeField]
     private float spawnDistanceFromPlayer = 15f;
+    private bool wasBossSpawned;
+
+    public float GetTimeFromStartToBoss()
+    {
+        return waveTime * (wavesForLevel.waves.Count - 1);
+    }
 
     private Vector2 GetRandomPointOnCircle(Vector2 center, float radius)
     {
@@ -48,6 +54,13 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    private void SpawnBoss()
+    {
+        wasBossSpawned = true;
+
+        SpawnEnemy(wavesForLevel.bossEnemy);
+    }
+
     private IEnumerator WavesCoroutine()
     {
         int currentWave = 1;
@@ -57,8 +70,12 @@ public class WaveManager : MonoBehaviour
             SpawnWave(currentWave);
             yield return wait;
             currentWave++;
-            if (currentWave > wavesForLevel.waves.Count)
+            if (currentWave >= wavesForLevel.waves.Count)
             {
+                if (!wasBossSpawned)
+                {
+                    SpawnBoss();
+                }
                 currentWave = wavesForLevel.waves.Count;
             }
         }
@@ -73,6 +90,8 @@ public class WaveManager : MonoBehaviour
         }
 
         Instance = this;
+
+        wasBossSpawned = false;
     }
 
     private void Start()
