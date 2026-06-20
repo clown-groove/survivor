@@ -9,7 +9,7 @@ public class EnemyDrops : MonoBehaviour
     {
         foreach( Loot loot in loot)
         {
-            float rng = Random.Range(0, 1);
+            float rng = Random.Range(0f, 1f);
             if (rng < loot.chance)
             {
                 Instantiate(loot.item, transform.position, Quaternion.identity, null);

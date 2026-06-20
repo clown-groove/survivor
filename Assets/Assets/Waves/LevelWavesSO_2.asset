@@ -10,29 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7f257ba4e0ede147be3b74c6115ef5d, type: 3}
-  m_Name: LevelWavesSO_1
+  m_Name: LevelWavesSO_2
   m_EditorClassIdentifier: Assembly-CSharp::LevelWavesSO
   waveTime: 10
   bossEnemy: {fileID: 3551182125919365143, guid: deebe3bd7ab009c44846ba26bc5eb475, type: 3}
   waves:
   - enemies:
     - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
-      amount: 4
+      amount: 20
   - enemies:
     - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
-      amount: 4
+      amount: 1
   - enemies:
     - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
-      amount: 7
+      amount: 5
+  - enemies:
+    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
+      amount: 1
+  - enemies:
+    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
+      amount: 40
+  - enemies: []
+  - enemies: []
+  - enemies: []
   - enemies:
     - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
       amount: 10
   - enemies:
     - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
       amount: 3
-  - enemies:
-    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
-      amount: 7
-  - enemies:
-    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
-      amount: 2

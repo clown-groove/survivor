@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   bulletPrefab: {fileID: 5325151589758802630, guid: 61096336dbc18e64fa2eefe8020c56fa, type: 3}
-  enemyStats: {fileID: 11400000, guid: 3d09b41ad92307c42a8ce348826f0b02, type: 2}
+  enemyStats: {fileID: 11400000, guid: 448b52ae31177034e974f0db1fdf0e03, type: 2}
 --- !u!114 &5447051920933456352
 MonoBehaviour:
   m_ObjectHideFlags: 0

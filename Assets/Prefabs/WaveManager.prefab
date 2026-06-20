@@ -45,5 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   wavesForLevel: {fileID: 11400000, guid: 302e57037ef204d49a7045798eb8ad1f, type: 2}
-  waveTime: 16
-  spawnDistanceFromPlayer: 15
+  spawnDistanceFromPlayer: 17
