@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyDrops))]
 public class EnemyHealth : MonoBehaviour
 {
+    private Rigidbody2D rb;
+
     private float currentHealth;
     [SerializeField]
     private SpriteRenderer spriteRenderer;
@@ -14,7 +16,7 @@ public class EnemyHealth : MonoBehaviour
     private float colorFadeDuration = .2f;
     private Coroutine fadeCoroutineReference;
 
-    public void ApplyDamage(float damage)
+    public void ApplyDamage(float damage, Vector2 dmgSourcePosition, float knockback)
     {
         currentHealth -= damage;
 
@@ -23,6 +25,8 @@ public class EnemyHealth : MonoBehaviour
             StopCoroutine(fadeCoroutineReference);
         }
         fadeCoroutineReference = StartCoroutine(ColorFadeCoroutine());
+
+        rb.AddForce(((Vector2)transform.position - dmgSourcePosition).normalized * knockback, ForceMode2D.Impulse);
 
         CheckDeath();
     }
@@ -52,5 +56,10 @@ public class EnemyHealth : MonoBehaviour
     public void SetHealth(float health)
     {
         currentHealth = health;
+    }
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
     }
 }

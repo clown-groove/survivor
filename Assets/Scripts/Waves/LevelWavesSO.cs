@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelWavesSO_x", menuName = "Scriptable Objects/Level Waves")]
 public class LevelWavesSO : ScriptableObject
 {
+    public float waveTime = 20f;
     public GameObject bossEnemy;
     [Header("Enemy Waves")]
     public List<WaveEnemies> waves;

@@ -23,6 +23,10 @@ public class GameUI : MonoBehaviour
 
     [SerializeField]
     private GameObject pauseMenu;
+    [SerializeField]
+    private GameObject defeatScreen;
+    [SerializeField]
+    private GameObject victoryScreen;
 
     public void Resume()
     {
@@ -74,6 +78,18 @@ public class GameUI : MonoBehaviour
         ammoText.text = $"{ammount}/{max}";
     }
 
+    private void OnDefeat()
+    {
+        defeatScreen.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+
+    private void OnVictory()
+    {
+        victoryScreen.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+
     private void Awake()
     {
         healthDisplays = new List<GameObject>();
@@ -82,6 +98,8 @@ public class GameUI : MonoBehaviour
     private void Start()
     {
         pauseMenu.SetActive(false);
+        defeatScreen.SetActive(false);
+        victoryScreen.SetActive(false);
         timerEndTime = DateTime.Now.AddSeconds(WaveManager.Instance.GetTimeFromStartToBoss());
     }
 
@@ -98,6 +116,8 @@ public class GameUI : MonoBehaviour
         PlayerHealth.OnCurrentHealthChanged += OnCurrentHealthChanged;
         PlayerHealth.OnMaxHealthChanged += OnMaxHealthChanged;
         GameManager.OnPause += OnPause;
+        GameManager.OnDefeat += OnDefeat;
+        GameManager.OnVictory += OnVictory;
         PlayerWeapon.OnAmmoAmmountChange += OnAmmoAmmountChange;
     }
 
@@ -106,6 +126,8 @@ public class GameUI : MonoBehaviour
         PlayerHealth.OnCurrentHealthChanged -= OnCurrentHealthChanged;
         PlayerHealth.OnMaxHealthChanged -= OnMaxHealthChanged;
         GameManager.OnPause -= OnPause;
+        GameManager.OnDefeat -= OnDefeat;
+        GameManager.OnVictory -= OnVictory;
         PlayerWeapon.OnAmmoAmmountChange -= OnAmmoAmmountChange;
     }
 }

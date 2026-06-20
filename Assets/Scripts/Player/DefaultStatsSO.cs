@@ -14,7 +14,7 @@ public class DefaultStatsSO : ScriptableObject
         new Stat { type = StatTypes.maxAmmo, value = 12f },
         new Stat { type = StatTypes.bulletAmmount, value = 1f },
         new Stat { type = StatTypes.spreadAngle, value = 10f },
-        new Stat { type = StatTypes.knockback, value = 1f },
+        new Stat { type = StatTypes.knockback, value = 5f },
         new Stat { type = StatTypes.walkSpeed, value = 4f },
         new Stat { type = StatTypes.maxHealth, value = 4f },
         new Stat { type = StatTypes.xpCollectRange, value = 4f },
