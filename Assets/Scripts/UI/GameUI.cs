@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
+    [SerializeField]
+    private string nextScene = "ExampleSceneName";
+    [SerializeField]
+    private GameObject nextLevelButton;
+
     [SerializeField]
     private RectTransform healthDisplayParent;
     [SerializeField]
@@ -36,6 +42,16 @@ public class GameUI : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene("MenuScene");
+    }
+
+    public void ReplayLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(nextScene);
     }
 
     private void OnCurrentHealthChanged(int current)
@@ -101,6 +117,17 @@ public class GameUI : MonoBehaviour
         defeatScreen.SetActive(false);
         victoryScreen.SetActive(false);
         timerEndTime = DateTime.Now.AddSeconds(WaveManager.Instance.GetTimeFromStartToBoss());
+        
+        if (SceneManager.GetSceneByName(nextScene).IsValid())
+        {
+            Debug.Log("Scena znaleziona");
+            nextLevelButton.SetActive(true);
+        }
+        else
+        {
+            Debug.Log("Scena NIEEEEE znaleziona");
+            nextLevelButton.SetActive(false);
+        }
     }
 
     private void Update()
