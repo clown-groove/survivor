@@ -4555,8 +4555,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 141d33e5cd4b823409cf8ba6879f7af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  wavesForLevel: {fileID: 11400000, guid: 1982c161dab05c9458ae994e333fafae, type: 2}
-  waveTime: 10
+  wavesForLevel: {fileID: 11400000, guid: 302e57037ef204d49a7045798eb8ad1f, type: 2}
+  waveTime: 16
   spawnDistanceFromPlayer: 15
 --- !u!4 &1939673005
 Transform:

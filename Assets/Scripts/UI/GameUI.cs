@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,8 +17,9 @@ public class GameUI : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI ammoText;
-    /*[SerializeField]
-    private TextMeshProUGUI timer;*/
+    [SerializeField]
+    private TextMeshProUGUI timerText;
+    private DateTime timerEndTime;
 
     [SerializeField]
     private GameObject pauseMenu;
@@ -78,6 +82,15 @@ public class GameUI : MonoBehaviour
     private void Start()
     {
         pauseMenu.SetActive(false);
+        timerEndTime = DateTime.Now.AddSeconds(WaveManager.Instance.GetTimeFromStartToBoss());
+    }
+
+    private void Update()
+    {
+        TimeSpan remaining = timerEndTime - DateTime.Now;
+        if (remaining.TotalSeconds < 0)
+            remaining = TimeSpan.Zero;
+        timerText.text = $"{remaining.Minutes:00}:{remaining.Seconds:00}";
     }
 
     private void OnEnable()

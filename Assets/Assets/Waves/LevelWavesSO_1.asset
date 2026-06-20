@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f257ba4e0ede147be3b74c6115ef5d, type: 3}
   m_Name: LevelWavesSO_1
   m_EditorClassIdentifier: Assembly-CSharp::LevelWavesSO
-  bossEnemy: {fileID: 0}
-  waves: []
+  bossEnemy: {fileID: 3551182125919365143, guid: deebe3bd7ab009c44846ba26bc5eb475, type: 3}
+  waves:
+  - enemies:
+    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
+      amount: 2
+  - enemies:
+    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
+      amount: 4
+  - enemies:
+    - enemy: {fileID: 3551182125919365143, guid: c4d157145913b1948b8cb32bd0981f85, type: 3}
+      amount: 1
