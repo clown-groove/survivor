@@ -106,6 +106,22 @@ public class GameUI : MonoBehaviour
         pauseMenu.SetActive(false);
     }
 
+    private bool SceneExists(string sceneName)
+    {
+        int sceneCount = SceneManager.sceneCountInBuildSettings;
+
+        for (int i = 0; i < sceneCount; i++)
+        {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            string sceneNameFromBuild = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+
+            if (sceneNameFromBuild == sceneName)
+                return true;
+        }
+
+        return false;
+    }
+
     private void Awake()
     {
         healthDisplays = new List<GameObject>();
@@ -118,7 +134,7 @@ public class GameUI : MonoBehaviour
         victoryScreen.SetActive(false);
         timerEndTime = DateTime.Now.AddSeconds(WaveManager.Instance.GetTimeFromStartToBoss());
         
-        if (SceneManager.GetSceneByName(nextScene).IsValid())
+        if (SceneExists(nextScene))
         {
             Debug.Log("Scena znaleziona");
             nextLevelButton.SetActive(true);

@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31629f263b8512e4b973768e8f0bc539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  animator: {fileID: 9003835248577050649}
   bulletPrefab: {fileID: 5325151589758802630, guid: 61096336dbc18e64fa2eefe8020c56fa, type: 3}
   enemyStats: {fileID: 11400000, guid: 448b52ae31177034e974f0db1fdf0e03, type: 2}
 --- !u!114 &5447051920933456352
@@ -166,6 +167,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3164297098210400090}
   - component: {fileID: 4555345025946798135}
+  - component: {fileID: 9003835248577050649}
   m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
@@ -183,7 +185,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.115, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6848718235997196985}
@@ -247,3 +249,25 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &9003835248577050649
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528688050220385144}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 79940cf14fd993147b3d59bfa7ba14a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

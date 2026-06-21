@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerWeapon))]
@@ -6,6 +7,10 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance { get; private set; }
+
+    [SerializeField]
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
     private PlayerWeapon playerWeapon;
@@ -22,6 +27,16 @@ public class PlayerController : MonoBehaviour
         Vector2 calculatedSpeed = (inputDirection.x * transform.right.normalized + inputDirection.y * transform.up.normalized).normalized * walkSpeed;
         float distanceToTarget = (calculatedSpeed - rb.linearVelocity).magnitude;
         rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, calculatedSpeed, walkSpeed * 2.4f * Time.fixedDeltaTime * (1 + distanceToTarget));
+        if (calculatedSpeed.magnitude < .1f)
+        {
+            animator.SetBool("isRunning", false);
+        }
+        else
+        {
+            animator.SetBool("isRunning", true);
+        }
+
+        spriteRenderer.flipX = inputDirection.x < 0 ? true : false;
     }
     #endregion
 
@@ -60,6 +75,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerWeapon = GetComponent<PlayerWeapon>();
         playerStats = GetComponent<PlayerStats>();
+        spriteRenderer = animator.GetComponent<SpriteRenderer>();
     }
 
     private void Start()

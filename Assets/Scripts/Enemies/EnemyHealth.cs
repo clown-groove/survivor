@@ -27,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
         fadeCoroutineReference = StartCoroutine(ColorFadeCoroutine());
 
         rb.AddForce(((Vector2)transform.position - dmgSourcePosition).normalized * knockback, ForceMode2D.Impulse);
+        GetComponent<EnemyController>().TriggerHurtAnimation();
 
         CheckDeath();
     }

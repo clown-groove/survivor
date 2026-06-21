@@ -5,6 +5,9 @@ using UnityEngine.InputSystem.UI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField]
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField]
     private GameObject bulletPrefab;
     [SerializeField]
     private EnemyStatsSO enemyStats;
@@ -15,6 +18,11 @@ public class EnemyController : MonoBehaviour
 
     private Vector2 playerPosition;
     private Vector2 playerDirection;
+
+    public void TriggerHurtAnimation()
+    {
+        animator.SetTrigger("Hurt");
+    }
 
     private void HandleAim()
     {
@@ -64,13 +72,17 @@ public class EnemyController : MonoBehaviour
         {
             calculatedSpeed = Vector2.zero;
         }
+        
         float distanceToTarget = (calculatedSpeed - rb.linearVelocity).magnitude;
         rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, calculatedSpeed, walkSpeed * 2.4f * Time.fixedDeltaTime * (1 + distanceToTarget));
+
+        spriteRenderer.flipX = moveDirection.x < 0? true : false;
     }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = animator.GetComponent<SpriteRenderer>();
     }
 
     private void Start()
