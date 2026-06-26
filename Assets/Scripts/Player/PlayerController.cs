@@ -36,7 +36,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isRunning", true);
         }
 
-        spriteRenderer.flipX = inputDirection.x < 0 ? true : false;
+        if (inputDirection.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (inputDirection.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
     }
     #endregion
 
